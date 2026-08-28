@@ -1,0 +1,51 @@
+{
+	"name": "dsfayazadlsoutput",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_fayazadlsdemo",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"output_file": {
+				"type": "string",
+				"defaultValue": "out.txt"
+			}
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@dataset().output_file",
+					"type": "Expression"
+				},
+				"folderPath": "fayaz-demo-output",
+				"fileSystem": "fayaz-container-demo"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "id",
+				"type": "String"
+			},
+			{
+				"name": "name",
+				"type": "String"
+			},
+			{
+				"name": "salary",
+				"type": "String"
+			},
+			{
+				"name": "mobile_num",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -1,0 +1,27 @@
+{
+	"name": "SqlServer1",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"parameters": {
+			"dbname": {
+				"type": "string",
+				"defaultValue": "aurora_demo"
+			}
+		},
+		"annotations": [],
+		"type": "SqlServer",
+		"typeProperties": {
+			"server": "DESKTOP-J2H094O\\SQLEXPRESS",
+			"database": "@{linkedService().dbname}",
+			"encrypt": "mandatory",
+			"trustServerCertificate": true,
+			"authenticationType": "SQL",
+			"userName": "fayaz_sql_demo1",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI2OGU1OWFkOS1lNzU0LTQ1ZTktOGJiMi0wMjExZTBlOTZhNjciLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "shir",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

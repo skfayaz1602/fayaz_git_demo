@@ -1,0 +1,15 @@
+{
+	"name": "fayaz-adf-demo",
+	"properties": {
+		"trustModeClaimForMi": {
+			"value": "Disabled",
+			"editable": true
+		}
+	},
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "cae19245-e9c0-4dd3-adef-59d119f519eb",
+		"tenantId": "821cb045-e415-4245-bd36-16c9c5d35231"
+	}
+}

@@ -1,0 +1,7 @@
+{
+	"name": "shir",
+	"properties": {
+		"type": "SelfHosted",
+		"description": "shir"
+	}
+}

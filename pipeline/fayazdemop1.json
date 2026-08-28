@@ -1,0 +1,90 @@
+{
+	"name": "fayazdemop1",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "dsfayazadlsinput",
+						"type": "DatasetReference",
+						"parameters": {
+							"input_file": {
+								"value": "@pipeline().parameters.input_file",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "dsfayazadlsoutput",
+						"type": "DatasetReference",
+						"parameters": {
+							"output_file": {
+								"value": "@pipeline().parameters.output_file",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			}
+		],
+		"parameters": {
+			"input_file": {
+				"type": "string",
+				"defaultValue": "demo1.txt"
+			},
+			"output_file": {
+				"type": "string",
+				"defaultValue": "out.txt"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2026-08-24T14:39:24Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

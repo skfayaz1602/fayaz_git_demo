@@ -1,0 +1,155 @@
+{
+	"name": "pipeline1",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": false,
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "emp_id",
+									"type": "Int32",
+									"physicalType": "int"
+								},
+								"sink": {
+									"name": "emp_id"
+								}
+							},
+							{
+								"source": {
+									"name": "last_name",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "last_name"
+								}
+							},
+							{
+								"source": {
+									"name": "email",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "email"
+								}
+							},
+							{
+								"source": {
+									"name": "salary",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 10
+								},
+								"sink": {
+									"name": "Salary"
+								}
+							},
+							{
+								"source": {
+									"name": "hire_date",
+									"type": "Date",
+									"physicalType": "date"
+								},
+								"sink": {
+									"name": "hire_date"
+								}
+							},
+							{
+								"source": {
+									"name": "first_name",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "first_name"
+								}
+							},
+							{
+								"source": {
+									"name": "phone_number",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "phone_number"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "ds_SqlServerTable1",
+						"type": "DatasetReference",
+						"parameters": {
+							"table_name": "employee",
+							"dn_name": {
+								"value": "@pipeline().parameters.source_db",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_SqlServerTable1",
+						"type": "DatasetReference",
+						"parameters": {
+							"table_name": "employee",
+							"dn_name": {
+								"value": "@pipeline().parameters.target_db",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			}
+		],
+		"parameters": {
+			"source_db": {
+				"type": "string",
+				"defaultValue": "aurora_demo"
+			},
+			"target_db": {
+				"type": "string",
+				"defaultValue": "demo_sql"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2026-08-25T18:53:11Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

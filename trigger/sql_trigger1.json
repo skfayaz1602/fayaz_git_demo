@@ -1,0 +1,37 @@
+{
+	"name": "sql_trigger1",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "pipeline1",
+					"type": "PipelineReference"
+				},
+				"parameters": {
+					"source_db": "aurora_demo",
+					"target_db": "demo_sql"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Day",
+				"interval": 1,
+				"startTime": "2026-08-26T00:00:00",
+				"endTime": "2026-08-26T18:33:21",
+				"timeZone": "India Standard Time",
+				"schedule": {
+					"minutes": [
+						5
+					],
+					"hours": [
+						0
+					]
+				}
+			}
+		}
+	}
+}
