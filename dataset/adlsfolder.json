@@ -1,0 +1,23 @@
+{
+	"name": "adlsfolder",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_fayazadlsdemo",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "fayaz-demo-input",
+				"fileSystem": "fayaz-container-demo"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}
