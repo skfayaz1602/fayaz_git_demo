@@ -137,11 +137,11 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@activity('Get Metadata1').output.itemName",
+						"value": "@activity('Get Metadata1').output.childItems",
 						"type": "Expression"
 					},
 					"condition": {
-						"value": "@equals(activity('Get Metadata1').output.itemName,'test15.txt' )",
+						"value": "@equals(item().name,'test15.txt' )",
 						"type": "Expression"
 					}
 				}
