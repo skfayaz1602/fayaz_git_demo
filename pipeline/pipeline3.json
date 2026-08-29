@@ -16,7 +16,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@activity('Get Metadata1').output",
+						"value": "@activity('Get Metadata1').output.childItems",
 						"type": "Expression"
 					},
 					"isSequential": true,
@@ -72,7 +72,7 @@
 									"type": "DatasetReference",
 									"parameters": {
 										"input_file": {
-											"value": "@item()",
+											"value": "@item().name",
 											"type": "Expression"
 										}
 									}
@@ -84,7 +84,7 @@
 									"type": "DatasetReference",
 									"parameters": {
 										"output_file": {
-											"value": "@item()",
+											"value": "@item().name",
 											"type": "Expression"
 										}
 									}
