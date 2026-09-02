@@ -54,6 +54,10 @@
 		"trigger1_properties_fayazdemop1_parameters_output_file": {
 			"type": "string",
 			"defaultValue": "demo1.txt"
+		},
+		"trigger2_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/56beed2b-2b66-4d53-8804-3efa639a9212/resourceGroups/fayaz_demo/providers/Microsoft.Storage/storageAccounts/fayazadlsdemo"
 		}
 	},
 	"variables": {
@@ -998,6 +1002,37 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/pipelines/fayazdemop1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/trigger2')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Started",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "pipeline1",
+							"type": "PipelineReference"
+						},
+						"parameters": {}
+					}
+				],
+				"type": "BlobEventsTrigger",
+				"typeProperties": {
+					"blobPathBeginsWith": "/fayaz-container-demo/blobs/fayaz-demo-input/",
+					"blobPathEndsWith": ".txt",
+					"ignoreEmptyBlobs": true,
+					"scope": "[parameters('trigger2_properties_typeProperties_scope')]",
+					"events": [
+						"Microsoft.Storage.BlobCreated"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/pipeline1')]"
 			]
 		},
 		{

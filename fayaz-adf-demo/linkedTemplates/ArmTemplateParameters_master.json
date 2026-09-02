@@ -41,6 +41,9 @@
 		"trigger1_properties_fayazdemop1_parameters_output_file": {
 			"value": "demo1.txt"
 		},
+		"trigger2_properties_typeProperties_scope": {
+			"value": "/subscriptions/56beed2b-2b66-4d53-8804-3efa639a9212/resourceGroups/fayaz_demo/providers/Microsoft.Storage/storageAccounts/fayazadlsdemo"
+		},
 		"containerUri": {
 			"value": ""
 		},
