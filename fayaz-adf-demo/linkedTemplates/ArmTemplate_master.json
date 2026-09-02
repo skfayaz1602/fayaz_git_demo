@@ -1,0 +1,126 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "fayaz-adf-demo"
+		},
+		"AzureBlobStorage1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage1'"
+		},
+		"AzureBlobStorage2_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage2'"
+		},
+		"SqlServer1_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'SqlServer1'"
+		},
+		"ls_fayazadlsdemo_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'ls_fayazadlsdemo'"
+		},
+		"SqlServer1_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "DESKTOP-J2H094O\\SQLEXPRESS"
+		},
+		"SqlServer1_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "@{linkedService().dbname}"
+		},
+		"SqlServer1_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "fayaz_sql_demo1"
+		},
+		"ls_fayazadlsdemo_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://fayazadlsdemo.dfs.core.windows.net/"
+		},
+		"sql_trigger1_properties_pipeline1_parameters_source_db": {
+			"type": "string",
+			"defaultValue": "aurora_demo"
+		},
+		"sql_trigger1_properties_pipeline1_parameters_target_db": {
+			"type": "string",
+			"defaultValue": "demo_sql"
+		},
+		"trigger1_properties_fayazdemop1_parameters_input_file": {
+			"type": "string",
+			"defaultValue": "demo1.txt"
+		},
+		"trigger1_properties_fayazdemop1_parameters_output_file": {
+			"type": "string",
+			"defaultValue": "demo1.txt"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "fayaz-adf-demo_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"AzureBlobStorage1_connectionString": {
+						"value": "[parameters('AzureBlobStorage1_connectionString')]"
+					},
+					"AzureBlobStorage2_connectionString": {
+						"value": "[parameters('AzureBlobStorage2_connectionString')]"
+					},
+					"ls_fayazadlsdemo_accountKey": {
+						"value": "[parameters('ls_fayazadlsdemo_accountKey')]"
+					},
+					"SqlServer1_password": {
+						"value": "[parameters('SqlServer1_password')]"
+					},
+					"ls_fayazadlsdemo_properties_typeProperties_url": {
+						"value": "[parameters('ls_fayazadlsdemo_properties_typeProperties_url')]"
+					},
+					"SqlServer1_properties_typeProperties_server": {
+						"value": "[parameters('SqlServer1_properties_typeProperties_server')]"
+					},
+					"SqlServer1_properties_typeProperties_database": {
+						"value": "[parameters('SqlServer1_properties_typeProperties_database')]"
+					},
+					"SqlServer1_properties_typeProperties_userName": {
+						"value": "[parameters('SqlServer1_properties_typeProperties_userName')]"
+					},
+					"trigger1_properties_fayazdemop1_parameters_input_file": {
+						"value": "[parameters('trigger1_properties_fayazdemop1_parameters_input_file')]"
+					},
+					"trigger1_properties_fayazdemop1_parameters_output_file": {
+						"value": "[parameters('trigger1_properties_fayazdemop1_parameters_output_file')]"
+					},
+					"sql_trigger1_properties_pipeline1_parameters_source_db": {
+						"value": "[parameters('sql_trigger1_properties_pipeline1_parameters_source_db')]"
+					},
+					"sql_trigger1_properties_pipeline1_parameters_target_db": {
+						"value": "[parameters('sql_trigger1_properties_pipeline1_parameters_target_db')]"
+					}
+				}
+			},
+			"dependsOn": []
+		}
+	]
+}
