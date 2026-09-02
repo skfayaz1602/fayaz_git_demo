@@ -1,0 +1,37 @@
+{
+	"name": "trigger1",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "fayazdemop1",
+					"type": "PipelineReference"
+				},
+				"parameters": {
+					"input_file": "demo1.txt",
+					"output_file": "demo1.txt"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Day",
+				"interval": 1,
+				"startTime": "2026-09-01T07:37:00",
+				"endTime": "2026-09-03T02:15:00",
+				"timeZone": "India Standard Time",
+				"schedule": {
+					"minutes": [
+						55
+					],
+					"hours": [
+						7
+					]
+				}
+			}
+		}
+	}
+}
