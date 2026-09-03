@@ -1,5 +1,5 @@
 {
-	"name": "Xml1",
+	"name": "ds_xml",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureBlobStorage1",
