@@ -1,0 +1,22 @@
+{
+	"name": "Xml1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Xml",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "SSN_meter_export_sample.xml.gz",
+				"folderPath": "xmlfiles",
+				"container": "fayaz-container-demo"
+			},
+			"compression": {
+				"type": "gzip"
+			}
+		}
+	}
+}
