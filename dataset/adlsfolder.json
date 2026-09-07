@@ -10,7 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"folderPath": "fayaz-demo-input",
+				"folderPath": "fayaz-demo-output",
 				"fileSystem": "fayaz-container-demo"
 			},
 			"columnDelimiter": ",",
