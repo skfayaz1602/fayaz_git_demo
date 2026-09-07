@@ -5,7 +5,14 @@
 			{
 				"name": "Delete1",
 				"type": "Delete",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "Set variable1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "0.12:00:00",
 					"retry": 0,
@@ -35,12 +42,48 @@
 					"storeSettings": {
 						"type": "AzureBlobFSReadSettings",
 						"recursive": true,
-						"wildcardFileName": "*.txt",
+						"wildcardFileName": {
+							"value": "@variables('ext')",
+							"type": "Expression"
+						},
 						"enablePartitionDiscovery": false
+					}
+				}
+			},
+			{
+				"name": "Set variable1",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "ext",
+					"value": {
+						"value": "@concat(pipeline().parameters.file_name,pipeline().parameters.ext)",
+						"type": "Expression"
 					}
 				}
 			}
 		],
+		"parameters": {
+			"file_name": {
+				"type": "string",
+				"defaultValue": "test"
+			},
+			"ext": {
+				"type": "string",
+				"defaultValue": ".txt"
+			}
+		},
+		"variables": {
+			"ext": {
+				"type": "String",
+				"defaultValue": ".txt"
+			}
+		},
 		"annotations": []
 	}
 }
