@@ -1,6 +1,12 @@
 {
 	"name": "fayaz-adf-demo",
 	"properties": {
+		"globalParameters": {
+			"env": {
+				"type": "string",
+				"value": "DEV"
+			}
+		},
 		"trustModeClaimForMi": {
 			"value": "Disabled",
 			"editable": true
