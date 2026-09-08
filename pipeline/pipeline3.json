@@ -7,7 +7,7 @@
 				"type": "ForEach",
 				"dependsOn": [
 					{
-						"activity": "Filter1",
+						"activity": "Get Metadata1",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -16,7 +16,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@activity('Filter1').output.value",
+						"value": "@activity('Get Metadata1').output.childItems",
 						"type": "Expression"
 					},
 					"isSequential": true,
@@ -214,29 +214,6 @@
 					},
 					"formatSettings": {
 						"type": "DelimitedTextReadSettings"
-					}
-				}
-			},
-			{
-				"name": "Filter1",
-				"type": "Filter",
-				"dependsOn": [
-					{
-						"activity": "Get Metadata1",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"userProperties": [],
-				"typeProperties": {
-					"items": {
-						"value": "@activity('Get Metadata1').output.childItems",
-						"type": "Expression"
-					},
-					"condition": {
-						"value": "@equals(item().name,'test15.txt' )",
-						"type": "Expression"
 					}
 				}
 			}
