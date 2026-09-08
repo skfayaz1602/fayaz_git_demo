@@ -1,0 +1,117 @@
+{
+	"name": "PL_INGEST_SALES",
+	"properties": {
+		"activities": [
+			{
+				"name": "Set_Sales_FileName",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "vSalesFileName",
+					"value": {
+						"value": "@concat(\n    'sales_transactions_',\n    pipeline().parameters.pRunDate,\n    '.csv'\n)",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Copy_Sales_To_Bronze",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "Set_Sales_FileName",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings",
+							"copyBehavior": "PreserveHierarchy"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "DS_SALES_SOURCE",
+						"type": "DatasetReference",
+						"parameters": {
+							"pFileName": {
+								"value": "@variables('vSalesFileName')",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DS_BRONZE_SALES",
+						"type": "DatasetReference",
+						"parameters": {
+							"pFileName": {
+								"value": "@variables('vSalesFileName')",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			}
+		],
+		"parameters": {
+			"pRunDate": {
+				"type": "string",
+				"defaultValue": "20260809"
+			}
+		},
+		"variables": {
+			"vSalesFileName": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "use_case"
+		},
+		"annotations": []
+	}
+}
