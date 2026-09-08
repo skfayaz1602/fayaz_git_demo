@@ -52,8 +52,14 @@
 						"referenceName": "use_case_adls_ds",
 						"type": "DatasetReference",
 						"parameters": {
-							"file_name": "product_master_",
-							"ext": ".json"
+							"file_name": {
+								"value": "@pipeline().parameters.file_name",
+								"type": "Expression"
+							},
+							"ext": {
+								"value": "@pipeline().parameters.ext",
+								"type": "Expression"
+							}
 						}
 					}
 				],
@@ -62,8 +68,14 @@
 						"referenceName": "use_case_bronze",
 						"type": "DatasetReference",
 						"parameters": {
-							"file_name": "product_master_",
-							"ext": ".csv"
+							"file_name": {
+								"value": "@pipeline().parameters.file_name",
+								"type": "Expression"
+							},
+							"ext": {
+								"value": "@pipeline().parameters.ext",
+								"type": "Expression"
+							}
 						}
 					}
 				]
