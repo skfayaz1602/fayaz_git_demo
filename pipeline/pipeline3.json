@@ -28,7 +28,7 @@
 							"userProperties": [],
 							"typeProperties": {
 								"expression": {
-									"value": "@equals(item().name,'demo1.txt' )",
+									"value": "@equals(item().name,'test15.txt' )",
 									"type": "Expression"
 								},
 								"ifTrueActivities": [
