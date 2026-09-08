@@ -9,6 +9,10 @@
 			"file_name": {
 				"type": "string",
 				"defaultValue": "sales_transactions_"
+			},
+			"ext": {
+				"type": "string",
+				"defaultValue": ".csv"
 			}
 		},
 		"annotations": [],
@@ -17,7 +21,7 @@
 			"location": {
 				"type": "AzureBlobStorageLocation",
 				"fileName": {
-					"value": "@concat(dataset().file_name, formatDateTime(utcnow(),'yyyyMMdd'), '.csv')",
+					"value": "@concat(dataset().file_name, formatDateTime(utcnow(),'yyyyMMdd'),dataset().ext)",
 					"type": "Expression"
 				},
 				"folderPath": "use_case/input",

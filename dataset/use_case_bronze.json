@@ -8,6 +8,9 @@
 		"parameters": {
 			"file_name": {
 				"type": "string"
+			},
+			"ext": {
+				"type": "string"
 			}
 		},
 		"annotations": [],
@@ -15,7 +18,10 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": "@concat(dataset().file_name, formatDateTime(utcnow(),'yyyyMMdd'), '.csv')",
+				"fileName": {
+					"value": "@concat(dataset().file_name, formatDateTime(utcnow(),'yyyyMMdd'), dataset().ext)",
+					"type": "Expression"
+				},
 				"folderPath": "use_case/bronze",
 				"container": "fayaz-container-demo"
 			},
