@@ -1,0 +1,68 @@
+{
+	"name": "DS_SALES_SOURCE",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_ADLS",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"pFileName": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "use_case"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@dataset().pFileName",
+					"type": "Expression"
+				},
+				"folderPath": "use_case/input",
+				"fileSystem": "fayaz-container-demo"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "sales_id",
+				"type": "String"
+			},
+			{
+				"name": "order_date",
+				"type": "String"
+			},
+			{
+				"name": "customer_id",
+				"type": "String"
+			},
+			{
+				"name": "product_id",
+				"type": "String"
+			},
+			{
+				"name": "quantity",
+				"type": "String"
+			},
+			{
+				"name": "net_amount",
+				"type": "String"
+			},
+			{
+				"name": "currency",
+				"type": "String"
+			},
+			{
+				"name": "source_system",
+				"type": "String"
+			}
+		]
+	}
+}
