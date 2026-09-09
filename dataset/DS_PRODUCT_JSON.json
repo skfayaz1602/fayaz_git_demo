@@ -1,0 +1,50 @@
+{
+	"name": "DS_PRODUCT_JSON",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_ADLS",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"p_file_name": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@dataset().p_file_name",
+					"type": "Expression"
+				},
+				"folderPath": "use_case/input",
+				"fileSystem": "fayaz-container-demo"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"product_id": {
+					"type": "string"
+				},
+				"product_name": {
+					"type": "string"
+				},
+				"brand": {
+					"type": "string"
+				},
+				"category": {
+					"type": "string"
+				},
+				"status": {
+					"type": "string"
+				},
+				"effective_date": {
+					"type": "string"
+				}
+			}
+		}
+	}
+}

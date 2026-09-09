@@ -1,0 +1,47 @@
+{
+	"name": "PL_PRODUCT_DAILY",
+	"properties": {
+		"activities": [
+			{
+				"name": "GM_PRODUCT_FILE",
+				"type": "GetMetadata",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataset": {
+						"referenceName": "DS_PRODUCT_JSON",
+						"type": "DatasetReference",
+						"parameters": {
+							"p_file_name": "product_master_20260908.json"
+						}
+					},
+					"fieldList": [],
+					"storeSettings": {
+						"type": "AzureBlobFSReadSettings",
+						"enablePartitionDiscovery": false
+					},
+					"formatSettings": {
+						"type": "JsonReadSettings"
+					}
+				}
+			}
+		],
+		"parameters": {
+			"p_file_date": {
+				"type": "string",
+				"defaultValue": "20260908"
+			}
+		},
+		"folder": {
+			"name": "use_case"
+		},
+		"annotations": []
+	}
+}
