@@ -14,7 +14,7 @@
 					},
 					"cases": [
 						{
-							"value": "demo1",
+							"value": "demo1.txt",
 							"activities": [
 								{
 									"name": "Execute Pipeline1",
@@ -41,7 +41,7 @@
 							]
 						},
 						{
-							"value": "test1",
+							"value": "test1.txt",
 							"activities": [
 								{
 									"name": "Execute Pipeline2",
