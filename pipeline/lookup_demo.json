@@ -103,7 +103,7 @@
 									"type": "DatasetReference",
 									"parameters": {
 										"file_name": {
-											"value": "@item().value",
+											"value": "@item().Prop_0",
 											"type": "Expression"
 										}
 									}
@@ -115,7 +115,7 @@
 									"type": "DatasetReference",
 									"parameters": {
 										"file_name": {
-											"value": "@item().value",
+											"value": "@item().Prop_0",
 											"type": "Expression"
 										}
 									}
@@ -124,8 +124,37 @@
 						}
 					]
 				}
+			},
+			{
+				"name": "Set variable1",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Lookup2",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "file_name",
+					"value": {
+						"value": "@activity('Lookup2').output.value[0].Prop_0",
+						"type": "Expression"
+					}
+				}
 			}
 		],
+		"variables": {
+			"file_name": {
+				"type": "String"
+			}
+		},
 		"annotations": []
 	}
 }
