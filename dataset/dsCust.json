@@ -1,0 +1,48 @@
+{
+	"name": "dsCust",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabase1",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"pTableName": {
+				"type": "string",
+				"defaultValue": "Customer"
+			}
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "pipeline_name",
+				"type": "varchar"
+			},
+			{
+				"name": "source_table",
+				"type": "varchar"
+			},
+			{
+				"name": "watermark_column",
+				"type": "varchar"
+			},
+			{
+				"name": "last_watermark",
+				"type": "datetime2",
+				"scale": 0
+			},
+			{
+				"name": "updated_at",
+				"type": "datetime2",
+				"scale": 0
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": {
+				"value": "@dataset().pTableName",
+				"type": "Expression"
+			}
+		}
+	}
+}

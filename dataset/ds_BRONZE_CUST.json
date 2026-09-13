@@ -1,0 +1,31 @@
+{
+	"name": "ds_BRONZE_CUST",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "use_case_ls",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"pFileName": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "use_case"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"folderPath": "use_case/bronze/customer",
+				"container": "fayaz-container-demo"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}

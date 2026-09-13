@@ -1,0 +1,154 @@
+{
+	"name": "PL_Customer_Incremental",
+	"properties": {
+		"activities": [
+			{
+				"name": "Lookup_Watermark",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": "SELECT last_watermark\nFROM dbo.ETL_Watermark\nWHERE pipeline_name = 'PL_Customer_Incremental';",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "dsCust",
+						"type": "DatasetReference",
+						"parameters": {
+							"pTableName": {
+								"value": "@pipeline().parameters.pETLName",
+								"type": "Expression"
+							}
+						}
+					}
+				}
+			},
+			{
+				"name": "Set_Current_Watermark",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Lookup_Watermark",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "current_watermark",
+					"value": "@formatDateTime(utcNow(),'yyyy-MM-dd HH:mm:ss')"
+				}
+			},
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "Set_Current_Watermark",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": "@concat(\n'SELECT customer_id, customer_name, region, channel, last_modified ',\n'FROM dbo.Customer ',\n'WHERE last_modified > ''',\nactivity('Lookup_Watermark').output.firstRow.last_watermark,\n''' AND last_modified <= ''',\nvariables('current_watermark'),\n''''\n)",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobStorageWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "dsCust",
+						"type": "DatasetReference",
+						"parameters": {
+							"pTableName": {
+								"value": "@pipeline().parameters.pTableName",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_BRONZE_CUST",
+						"type": "DatasetReference",
+						"parameters": {
+							"pFileName": {
+								"value": "@pipeline().parameters.pFileName",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			}
+		],
+		"parameters": {
+			"pTableName": {
+				"type": "string",
+				"defaultValue": "Customer"
+			},
+			"pETLName": {
+				"type": "string",
+				"defaultValue": "ETL_Watermark"
+			},
+			"pFileName": {
+				"type": "string",
+				"defaultValue": "CUST_20260914.csv"
+			}
+		},
+		"variables": {
+			"current_watermark": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "use_case"
+		},
+		"annotations": []
+	}
+}
