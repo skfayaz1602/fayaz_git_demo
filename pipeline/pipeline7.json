@@ -1,0 +1,39 @@
+{
+	"name": "pipeline7",
+	"properties": {
+		"activities": [
+			{
+				"name": "Lookup1",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": "select distinct source_table from [dbo].[ETL_Watermark]",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "dsCust",
+						"type": "DatasetReference",
+						"parameters": {
+							"pTableName": "ETL_Watermark"
+						}
+					}
+				}
+			}
+		],
+		"folder": {
+			"name": "use_case"
+		},
+		"annotations": []
+	}
+}
