@@ -1,5 +1,5 @@
 {
-	"name": "pipeline7",
+	"name": "dynamic_pl_multi_sql_tables",
 	"properties": {
 		"activities": [
 			{
